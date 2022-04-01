@@ -20,3 +20,5 @@ if float(answerx) == 5 and float(answery) == 3:
     print("correct!")
 else:
     print("wrong :(")
+    
+print("Yo mama obama")
