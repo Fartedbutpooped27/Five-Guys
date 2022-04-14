@@ -25,4 +25,8 @@ print("Yo mama obama")
 
 print("Logan loves Alex so much")
 
+<<<<<<< HEAD
 print("test")
+=======
+print("Doggo")
+>>>>>>> 4e3fe111580e5562edc453980fa68a7c2618680f
