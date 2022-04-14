@@ -27,6 +27,9 @@ class Pageone():
         random.allCards
     def dealCard(self, playerHand):
         self.playerHand = []
+
+class gameplay():
+    def __init__(self, card, 
         
     
     
@@ -42,7 +45,7 @@ class Player():
     
 class Human(Player):
     """ """
-    def take_turn(self, hand):
+    def take_turn(self, gameplay):
         """ """
         
 class Computer(Player):
@@ -50,5 +53,5 @@ class Computer(Player):
     
     def numPlayer(self, players):
         """ """
-    def take_turn(self, hand):
+    def take_turn(self, gameplay):
         """ """
