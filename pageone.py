@@ -18,13 +18,22 @@ CARDS = {
 }
 
 class Pageone():
+    """ """
     def __init__(self, player):
         return None
         
 class Player():
-    def __init__(self, player):
-        self.player = player
+    """ """
+    def __init__(self, player_name):
+        """ """
+        self.player_name = player_name   
     
+class Human(Player):
+    """ """
+    def take_turn(self, hand):
+        """ """
+        
 class Computer(Player):
-    def __init__(self):
-        super.__init__()
+    """ """
+    def take_turn(self, hand):
+        """ """
