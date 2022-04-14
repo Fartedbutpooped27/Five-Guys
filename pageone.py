@@ -25,9 +25,12 @@ class Pageone():
         self.playerHand = []
         
 class Player():
-    """ """
+    """Abstract base class for a Page One player.
+    
+    Attributes:
+        player_name (str): the player's name.
+    """
     def __init__(self, player_name):
-        """ """
         self.player_name = player_name   
     
 class Human(Player):
