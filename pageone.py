@@ -16,3 +16,6 @@ CARDS = {
     "Ace": 14,
     "Joker": 15
 }
+
+class Pageone():
+    def __init__(self, player):
