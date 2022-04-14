@@ -1,4 +1,5 @@
 #python code for page one
+import random
 
 CARDS = {
     "two": 2,
@@ -21,8 +22,14 @@ class Pageone():
     """ """
     def __init__(self, player):
         return None
+    def stock(self, stockDeck):
+        allCards = ["""all cards in deck"""]
+        random.allCards
     def dealCard(self, playerHand):
         self.playerHand = []
+        
+    
+    
         
 class Player():
     """ """
