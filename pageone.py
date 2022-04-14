@@ -1,4 +1,4 @@
-"""An Implementation of the game Page One"""
+#python code for page one
 
 CARDS = {
     "two": 2,
@@ -12,16 +12,7 @@ CARDS = {
     "ten": 10,
     "Jack": 11,
     "Queen": 12,
-    "king": 13,
+    "King": 13,
     "Ace": 14,
-    "Joker": 15,
-    
+    "Joker": 15
 }
-class Player:
-    def __init__(self, player):
-        
-    def gameover(self):
-        
-    def playround(self):
-        
-        
