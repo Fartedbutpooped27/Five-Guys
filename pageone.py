@@ -22,9 +22,9 @@ class Pageone():
         return None
         
 class Player():
-    def __init__(self):
-        return None
+    def __init__(self, player):
+        self.player = player
     
 class Computer(Player):
     def __init__(self):
-        return None
+        super.__init__()
