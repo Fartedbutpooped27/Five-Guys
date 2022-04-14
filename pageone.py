@@ -21,6 +21,8 @@ class Pageone():
     """ """
     def __init__(self, player):
         return None
+    def dealCard(self, playerHand):
+        self.playerHand = []
         
 class Player():
     """ """
@@ -35,5 +37,8 @@ class Human(Player):
         
 class Computer(Player):
     """ """
+    
+    def numPlayer(self, players):
+        """ """
     def take_turn(self, hand):
         """ """
