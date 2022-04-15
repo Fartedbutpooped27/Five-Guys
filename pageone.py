@@ -19,14 +19,62 @@ CARDS = {
 }
 
 class Pageone():
-    """ """
-    def __init__(self, player):
+    """Class that initializes the Page One game
+
+    Attributes:
+        player (str): the player
+        stockDeck (list): list which contains all of the cards which has been randomized
+
+    Methods:
+        stock(stockDeck): randomizes all the cards in the deck 
+        dealCard(playerHand): deals the card out to the player and then puts the cards in an empty list
+    """
+    def init(self, player):
+        """Method that initializes the player variable
+
+        Attributes:
+            player (str): the player represented as a string
+
+        Returns:
+            Returns a value of None
+        """
         return None
     def stock(self, stockDeck):
+        """Method randomizes all the cards in the deck
+
+        Attributes:
+            stockDeck (list): list which contains all of the cards which has been randomized
+
+        Side Effects:
+            A list containing all of the cards which has been randomized 
+        """
         allCards = ["""all cards in deck"""]
         random.allCards
     def dealCard(self, playerHand):
+        """Method which deals cards to the player hand
+
+        Attributes:
+            playerHand (list): list which contains the cards that has been dealed to them
+
+        Side Effects:
+            A list containing all of the cards which has been dealed to them
+        """
         self.playerHand = []
+
+class gameplay():
+    def __init__(self, card):
+        """"""
+    
+    def isCardValid(self, playerHand):
+        
+    def draw(self):
+        
+    def winRound(self):
+        
+    def winner(self):
+        
+        
+      
         
     
     
@@ -41,14 +89,42 @@ class Player():
         self.player_name = player_name   
     
 class Human(Player):
-    """ """
-    def take_turn(self, hand):
-        """ """
+    """Class for the human player 
+    
+    Attributes:
+        name (str): the player's name
+    """
+    
+    def take_turn(self, gameplay):
+        """Player takes their turn
+        
+        Args:
+            gameplay (object): the current state of the game
+            
+        Return:
+            str: a string of what happened in the turn
+            
+        """
         
 class Computer(Player):
-    """ """
-    
+    """ The computer player/s that play against the human player.
+
+    Attributes:
+        numPlayer (int): The number of players in the game, one to four.
+    """
+
     def numPlayer(self, players):
-        """ """
-    def take_turn(self, hand):
-        """ """
+        """The amount of computer players that are in the game, one to four players
+
+    Args:
+        players (int): number of players
+        """
+    def take_turn(self, gameplay):
+        """Player takes their turn
+
+        Args:
+            gameplay (object): the current state of the game
+
+        Return:
+            str: a string of what happened in the turn
+        """
