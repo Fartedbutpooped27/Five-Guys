@@ -65,19 +65,46 @@ class gameplay():
     def __init__(self, card):
         """"""
     
-    def isCardValid(self, playerHand):
+    def isCardValid(self, card):
+        """validates whether a card is playable at a given moment
         
-    def draw(self):
+        Args:
+            card (str) : a given card a player wants to lay down for their turn
+            currentCard (str) : The most current card on the trick
+        Returns:
+            Bool : Boolean value showing whether the card is valid to play
+        """
         
-    def winRound(self):
+    def draw(self, stockDeck, playerHand):
+        """draws a card from the stock
         
-    def winner(self):
+        Args:
+            stockDeck (dict) : the current stock
+            playerHand (dict) : the player's current hand
+            
+        Returns:
+            None
+        """
         
+    def winRound(self, game):
+        """Determines who wins the round
         
-      
+        Args:
+            gameplay (object) : the current state of the game
         
-    
-    
+        Returns:
+            round_winner (str) : the winning player
+        """
+        
+    def winner(self, game):
+        """Determines who wins entire game
+        
+        Args:
+            gameplay (object) : current state of game
+            
+        Returns:
+            winner (str) : winner of whole game
+        """
         
 class Player():
     """Abstract base class for a Page One player.
@@ -101,15 +128,22 @@ class Human(Player):
         Args:
             gameplay (object): the current state of the game
             
-        Return:
+        Returns:
             str: a string of what happened in the turn
             
         """
         
 class Computer(Player):
-    """ """
+    """Instance of Player which controls computer player"""
     
     def numPlayer(self, players):
         """ """
     def take_turn(self, gameplay):
-        """ """
+        """Takes turn for computer player
+        
+        Args:
+            gameplay (object) : current state of game
+            
+        Returns:
+            turn (str) : explanation of the player's turn
+        """
