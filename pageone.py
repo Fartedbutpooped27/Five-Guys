@@ -33,7 +33,15 @@ class gameplay():
         """"""
     
     def isCardValid(self, playerHand):
-        d
+        
+    def draw(self):
+        
+    def winRound(self):
+        
+    def winner(self):
+        
+        
+      
         
     
     
