@@ -29,7 +29,11 @@ class Pageone():
         self.playerHand = []
 
 class gameplay():
-    def __init__(self, card, 
+    def __init__(self, card):
+        """"""
+    
+    def isCardValid(self, playerHand):
+        d
         
     
     
