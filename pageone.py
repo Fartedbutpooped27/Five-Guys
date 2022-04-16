@@ -147,3 +147,6 @@ class Computer(Player):
         Returns:
             turn (str) : explanation of the player's turn
         """
+        
+if __name__ == "__main__":
+    args = parse_args(sys.argv[1:])
