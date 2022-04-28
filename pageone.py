@@ -1,5 +1,7 @@
 #python code for page one
 import random
+import sys 
+
 
 CARDS = {
     "two": 2,
@@ -19,6 +21,7 @@ CARDS = {
 }
 
 class Pageone():
+    #Alex
     """Class that initializes the Page One game
 
     Attributes:
@@ -62,6 +65,8 @@ class Pageone():
         self.playerHand = []
 
 class gameplay():
+    #init, isCardValid, draw - Jay
+    #winRound, winner - Jon
     def __init__(self, card):
         """"""
     
@@ -107,6 +112,7 @@ class gameplay():
         """
         
 class Player():
+    #Logan
     """Abstract base class for a Page One player.
     
     Attributes:
@@ -116,6 +122,7 @@ class Player():
         self.player_name = player_name   
     
 class Human(Player):
+    #Logan
     """Class for the human player 
     
     Attributes:
@@ -134,6 +141,7 @@ class Human(Player):
         """
         
 class Computer(Player):
+    #Ben
     """Instance of Player which controls computer player"""
     
     def numPlayer(self, players):
