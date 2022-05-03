@@ -100,7 +100,7 @@ class Pageone():
             Displays information in the terminal.
             """
 
-class gameplay():
+class Gameplay():
     """class that manages the gameplay of pageone"""
     def __init__(self):
         """initalizes the gameplay class"""
