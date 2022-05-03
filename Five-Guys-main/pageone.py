@@ -101,7 +101,7 @@ class Pageone():
             """
 
 class gameplay():
-    """class that manages the gameeplay of pageone"""
+    """class that manages the gameplay of pageone"""
     def __init__(self):
         """initalizes the gameplay class"""
         self.card = []
