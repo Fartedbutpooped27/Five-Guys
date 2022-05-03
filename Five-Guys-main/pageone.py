@@ -133,7 +133,7 @@ class gameplay():
         Returns:
             None
         """
-        drawn = random.choice(self.cards)
+        drawn = random.choice(self.card)
         playerHand += drawn
         
     def winRound(self, gameplay):
