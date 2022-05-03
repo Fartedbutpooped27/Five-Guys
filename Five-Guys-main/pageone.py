@@ -124,17 +124,17 @@ class gameplay():
             print("The face does not match the other cards")
             raise ValueError 
         
-    def draw(self, stockDeck, playerHand):
+    def draw(self, playerHand):
         """draws a card from the stock
         
         Args:
-            stockDeck (dict) : the current stock
             playerHand (dict) : the player's current hand
             
         Returns:
             None
         """
-        
+        drawn = random.choice(self.cards)
+        playerHand += drawn
         
     def winRound(self, gameplay):
         """Determines who wins the round
