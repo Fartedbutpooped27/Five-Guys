@@ -81,27 +81,27 @@ class Pageone():
         Returns:
             bool: True if the game is over, otherwise false.
         """
-        def play(self):
-            """manage game play.
+    def play(self):
+        """manage game play.
             
-            After each round, ask players if they would like to play again
+        After each round, ask players if they would like to play again
             
-            Side effects:
-            Displays information in the terminal.
-            resets player's hands
-            """
-        def play_again(self):
-            """Ask players if they would like to play another round.
+        Side effects:
+        Displays information in the terminal.
+        resets player's hands
+        """
+    def play_again(self):
+        """Ask players if they would like to play another round.
 
-            Returns:
-                bool: True if players choose to keep playing, otherwise False.
-        
-            Side effects:
-            Displays information in the terminal.
+        Returns:
+            bool: True if players choose to keep playing, otherwise False.
+    
+        Side effects:
+        Displays information in the terminal.
             """
 
-class Gameplay():
-    """class that manages the gameplay of pageone"""
+class gameplay():
+    """class that manages the gameeplay of pageone"""
     def __init__(self):
         """initalizes the gameplay class"""
         self.card = []
@@ -172,7 +172,7 @@ class Human(Player):
         name (str): the player's name
     """
     
-    def take_turn(self, gameplay):
+    def take_turn(self, gameplay, playerHand):
         """Player takes their turn
         
         Args:
@@ -182,6 +182,18 @@ class Human(Player):
             str: a string of what happened in the turn
             
         """
+       #print player's hand
+       #if no playable cards, make player draw until playable card drawn
+       #else player tries to play a card
+       #check if card is playable
+       #if not, tell player to try again
+       #remove card from player's hand
+       #make card played into the new top of deck
+       #change player turn to computer player
+        for card in playerHand:
+            if gameplay.isCardValid(card, gameplay.top_card)
+            
+        
         
 class Computer(Player):
     """Instance of Player which controls computer player"""
