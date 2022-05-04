@@ -128,3 +128,4 @@ class Computer(Player):
         Return:
             str: a string of what happened in the turn
         """
+        """ """
