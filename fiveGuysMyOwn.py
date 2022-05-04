@@ -36,10 +36,9 @@ computer_hand = []
 for f in FACES:
     for c in CARDS:
         letterName = CARDS.keys()
-        #print(letterName)
-        #draw_pile.append(f"{letterName} of {f}")
+        draw_pile.append(f"{letterName} of {f}")
 
-#print(draw_pile)
+print(draw_pile)
         
 
    
