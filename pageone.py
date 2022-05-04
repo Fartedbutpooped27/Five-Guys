@@ -72,7 +72,7 @@ class gameplay():
     
     def isCardValid(self, card):
         """validates whether a card is playable at a given moment
-        
+         
         Args:
             card (str) : a given card a player wants to lay down for their turn
             currentCard (str) : The most current card on the trick
@@ -100,6 +100,7 @@ class gameplay():
         Returns:
             round_winner (str) : the winning player
         """
+        
         
     def winner(self, game):
         """Determines who wins entire game
