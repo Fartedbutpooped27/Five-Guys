@@ -34,21 +34,23 @@ FACES = [
 #   for i in letterName:
 #        deck.append(f"{i} {f}")
 
-deck = []
-file = "deck.txt"
+#CREAT DECK FUNCTION
 def createdeck(file):
+    deck = []
+    file = "deck.txt"
     with open(file, 'r', encoding = 'utf-8') as f:
         for line in f:
             deck.append(line)
+    return deck
 
         
 #regex that match group suits and card values
 #this should go in the deal_hand() method
-expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
-for element in deck:
-    match = re.search(expr, element)
-    cardValue = match.group(0)
-    suitValue = match.group(1)
+#expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
+#for element in deck:
+#    match = re.search(expr, element)
+#    cardValue = match.group(0)
+#    suitValue = match.group(1)
    
 class GameState:
     """DOCSTRINGGGGG """ 
