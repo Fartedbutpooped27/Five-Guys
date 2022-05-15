@@ -53,13 +53,11 @@ class GameState:
         self.stock = []
         #for i in deck:
         #  self.stock.append(i)
-       
         self.stock = [i for i in deck] #LIST COMPREHENSION
  
     def draw_card(self, hand):     
         """DOCSTRINGGGGG """
         #suit = []
-
         new_card = random.choice(self.stock)
         valid = False
         while valid == False:
@@ -75,14 +73,10 @@ class GameState:
         print(f"you played {new_card}\n")
         return hand
    
-    def Current_top_card(self, chosenCard):
+    def Current_top_card(self, card_suit):
         """DOCSTRINGGGGG """ 
-        self.top_suit = chosenCard
-       
-       
-       
-       
-       
+        self.top_suit = card_suit
+    
     def roundWinner(self, player1, player2):
         """DOCSTRINGGGGG """ 
         cards = [player1, player2]
@@ -92,13 +86,10 @@ class GameState:
         else:
             return 1
        
-       
-       
     def game_winner():
         """DOCSTRINGGGGG """ 
         pass  
- 
-       
+  
     def isCardValid(self, card):
         """DOCSTRINGGGGG """ 
         if card == self.topSuit:  
