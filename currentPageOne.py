@@ -24,15 +24,23 @@ FACES = [
     "Diamonds",
     "Hearts"]
 
-deck = []
-discard = []
-hand = []
-letterName = list(CARDS.keys())
+#deck = []
+#discard = []
+#hand = []
+#letterName = list(CARDS.keys())
  
 #fill draw_pile
-for f in FACES:
-    for i in letterName:
-        deck.append(f"{i} {f}")
+#for f in FACES:
+#   for i in letterName:
+#        deck.append(f"{i} {f}")
+
+deck = []
+file = "deck.txt"
+def createdeck(file):
+    with open(file, 'r', encoding = 'utf-8') as f:
+        for line in f:
+            deck.append(line)
+
         
 #regex that match group suits and card values
 #this should go in the deal_hand() method
