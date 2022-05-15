@@ -63,8 +63,19 @@ class GameState:
         self.stock = []
         #for i in deck:
         #  self.stock.append(i)
+        deck = createdeck()
         self.stock = [i for i in deck] #LIST COMPREHENSION
  
+    def dealCard(self):
+        hand = []
+        count = 4
+        while count > 0:
+            new_card = random.choice(self.stock)
+            hand.append(new_card)
+            self.stock.remove(new_card)
+            count -= 1
+        return hand
+            
     def draw_card(self, hand):     
         """DOCSTRINGGGGG """
         #suit = []
@@ -124,15 +135,7 @@ class Player:
         for i in deck:
             self.stock.append(i)
        
-        self.starting_hand = []
-        count = 4
-        while count > 0:
-            new_card = random.choice(self.stock)
-            self.hand.append(new_card)
-            self.stock.remove(new_card)
-            count -= 1
-       
-       
+        # self.starting_hand = []       
    
 class Human(Player):
     """DOCSTRINGGGGG """ 
