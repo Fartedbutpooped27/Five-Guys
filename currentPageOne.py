@@ -92,7 +92,7 @@ class GameState:
   
     def isCardValid(self, card):
         """DOCSTRINGGGGG """ 
-        if card == self.topSuit:  
+        if card == self.top_suit:  
             return True
         else:
             return False
@@ -213,9 +213,9 @@ class Computer(Player):
           play_card = random.choice(playableCards)
  
 if __name__ == "__main__":
-    stock = []
-    for i in deck:
-        stock.append(i)
+    #stock = []
+    #for i in deck:
+    #   stock.append(i)
    
     player1_name = input("input first player's name: \n")
     player2_name = input("input first player's name: \n")
