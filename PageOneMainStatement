@@ -1,1 +1,7 @@
 #if name == main statement in separate file
+
+if __name__ == "__main__":
+    print("Welcome to Page One!\n")
+    
+    #get player 1 name and create human player class
+    player1 = input("Enter the name of player 1 (Human Player)")
