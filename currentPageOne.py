@@ -65,7 +65,11 @@ class GameState:
         #  self.stock.append(i)
         deck = createdeck()
         self.stock = [i for i in deck] #LIST COMPREHENSION
- 
+        
+    def __repr__(self):
+        """DOCSTRINGGGG """
+        return (f"The current top card is: {self.top_card}")
+
     def dealCard(self):
         hand = []
         count = 4
