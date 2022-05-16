@@ -1,7 +1,7 @@
 import random
 import re
- 
- 
+
+
 CARDS = {
     "Two": 2,
     "Three": 3,
@@ -15,26 +15,26 @@ CARDS = {
     "Jack": 11,
     "Queen": 12,
     "King": 13,
-    "Ace": 14
+    "Ace": 14 
 }
- 
+
 FACES = [
     "Spades",
     "Clubs",
     "Diamonds",
     "Hearts"]
- 
+
 deck = []
 discard = []
 hand = []
 letterName = list(CARDS.keys())
- 
+
 #fill draw_pile
 for f in FACES:
     for i in letterName:
         deck.append(f"{i} {f}")
- 
- 
+
+
 #regex that match group suits and card values
 #this should go in the deal_hand() method
 expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
@@ -42,27 +42,27 @@ for element in deck:
     match = re.search(expr, element)
     cardValue = match.group(0)
     suitValue = match.group(1)
-   
+    
 class GameState:
     def __init__(self, deck):
         self.top_suit = ""
         self.high_card = ""
-       
+        
         self.stock = []
         #for i in deck:
         #  self.stock.append(i)
-       
+        
         self.stock = [i for i in deck] #LIST COMPREHENSION
- 
+
     def draw_card(self, hand):      
         test_deck = []
         suit = []
-       
+        
         for i in self.stock:
           test_deck.append(i)
- 
+
        
- 
+
         new_card = random.choice(test_deck)
         valid = False
         while valid == False:
@@ -77,14 +77,14 @@ class GameState:
             valid = True
         print(f"you played {new_card}\n")
         return hand
-   
+    
     def Current_top_card(self, chosenCard):
         self.top_suit = chosenCard
-       
-       
-       
-       
-       
+        
+        
+        
+        
+        
     def roundWinner(self, player1, player2):
         cards = [player1, player2]
         winner = max (cards, key= lambda x: CARDS[x])
@@ -92,20 +92,20 @@ class GameState:
             return 0
         else:
             return 1
-       
-       
+        
+        
        
     def game_winner():
         pass  
- 
-       
+  
+        
     def isCardValid(self, card):
       if card == self.topSuit:  
         return True
       else:
         return False
-   
-   
+    
+    
 class Player:
     def __init__(self, deck, player_name="no_name"):
         #init player name
@@ -114,10 +114,10 @@ class Player:
         self.hand = []
         self.top_card = ""
         self.chosenCard = ""
-       
+        
         for i in deck:
             self.stock.append(i)
-       
+        
         self.starting_hand = []
         count = 4
         while count > 0:
@@ -125,9 +125,9 @@ class Player:
             self.hand.append(new_card)
             self.stock.remove(new_card)
             count -= 1
-       
-       
-   
+        
+        
+    
 class Human(Player):
     def take_turn(self):
         #get gamestate
@@ -140,7 +140,7 @@ class Human(Player):
         #print player's hand
         print(f"Top Suit: {self.topSuit}\n")
         print(f"start turn hand: {self.hand}\n")
-       
+        
         #create match groups for future use
         self.suits = []
         self.nums = []
@@ -151,7 +151,7 @@ class Human(Player):
             suitValue = match.group("suitValue")
             self.suits.append(suitValue)
             self.nums.append(cardValue)
-       
+        
         #check for playable cards
         current_gamestate = GameState(self.stock)
         playableCards = []
@@ -160,7 +160,7 @@ class Human(Player):
             if item == current_gamestate.topSuit:
                 playableCards.append(f"{self.nums[count]} {item}\n")
             count += 1
-       
+        
         if playableCards == []:
             print("you must draw until playable card appears\n")
             self.hand = current_gamestate.draw_card(self.hand)
@@ -177,12 +177,12 @@ class Human(Player):
                   val = True
             else:
                 play_card = int(input("invalid entry, try another card: \n"))
-               
+                
 class Computer(Player):
     def take_turn(self):
         print(f"Top Suit: {self.topSuit}\n")
         print(f"start turn hand: {self.hand}\n")
-       
+        
         #create match groups for future use
         self.suits = []
         self.nums = []
@@ -193,44 +193,30 @@ class Computer(Player):
             suitValue = match.group("suitValue")
             self.suits.append(suitValue)
             self.nums.append(cardValue)
-           
-        current_gamestate = GameState(self.stock)
-        playableCards = []
-        count = 0
-        for item in self.suits:
-            if item == current_gamestate.topSuit:
-                playableCards.append(f"{self.nums[count]} {item}\n")
-            count += 1
-           
-        if playableCards == []:
-            self.hand = current_gamestate.draw_card(self.hand)
-        else:
-          #play card
-          play_card = random.choice(playableCards)
- 
+            
 def main():
     stock = []
     for i in deck:
         stock.append(i)
-   
+    
     player1_name = input("input first player's name: \n")
     player2_name = input("input first player's name: \n")
-   
+    
     player1 = Human(player1_name, stock)
     for card in player1.hand:
         stock.remove(card)
     player2 = Computer(player2_name, stock)
     for card2 in player2.hand:    
         stock.remove(card2)
-   
+    
     game = True
     player = 0
     while game:
-       
+        
         if player1.hand == [] or player2.hand == []:
             GameState.game_winner()
             game = False
-               
+                
         elif player == 0:
             player1.take_turn()
             player2.take_turn()
@@ -241,9 +227,9 @@ def main():
             player1.take_turn()
             #top_card = player2.top_card
             #player = 1 - player
-     
-       
+      
+        
         player = GameState.round_winner(player1.card_num, player2.card_num)
-       
-main()  
-   
+        
+main()   
+    
