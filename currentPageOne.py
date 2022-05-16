@@ -54,7 +54,7 @@ def createdeck(file):
    
 class GameState:
     """DOCSTRINGGGGG """ 
-    def __init__(self, deck):
+    def __init__(self):
         """DOCSTRINGGGGG """ 
         self.top_suit = ""
         self.high_card = ""
