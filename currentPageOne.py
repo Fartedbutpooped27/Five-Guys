@@ -262,7 +262,7 @@ class Computer(Player):
                 self.hand.append(i)
             self.play_card = self.hand.index(new_card)
             print(f"PLAY CARD: {self.play_card}") #{self.play_card}
-            self.hand.remove(self.hand[self.play_card])
+            self.hand.remove(self.play_card)
             print(f"Computer's new current hand: {self.hand}\n")
         else:
             #play card
