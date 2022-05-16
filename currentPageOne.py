@@ -113,9 +113,10 @@ class GameState:
        
         
     def restock(self):
-        """ DOCSTRING"""
-        #append trick to stock
-        return None
+        """DOCSTRING"""
+        for card in self.trick:
+            self.stock.append(card)
+            self.trick.remove(card)
            
     def game_winner(p1hand, p2hand):
         """DOCSTRINGGGGG """ 

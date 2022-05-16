@@ -199,3 +199,9 @@ def main():
         #DETERMINE WINNER AT SOME POINT
         
 main()
+
+def restock(self):
+    for card in self.trick:
+        self.stock.append(card)
+        self.trick.remove(card)
+        
