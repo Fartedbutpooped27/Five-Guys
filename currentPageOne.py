@@ -189,11 +189,11 @@ class Human(Player):
             self.nums.append(cardValue)
        
         #check for playable cards
-        current_gamestate = GameState(self.stock)
+        #current_gamestate = GameState(self.stock)
         playableCards = []
         count = 0
         for item in self.suits:
-            if item == current_gamestate.topSuit:
+            if item == gamestate.top_suit:
                 playableCards.append(f"{self.nums[count]} {item}\n")
             count += 1
             
@@ -201,7 +201,7 @@ class Human(Player):
        
         if self.playablecards == []:
             print("you must draw until playable card appears\n")
-            self.hand = current_gamestate.draw_card(self.hand)
+            self.hand = gamestate.draw_card(self.hand)
             print(f"your new current hand: {self.hand}\n")
         else:
           #play card
@@ -210,8 +210,10 @@ class Human(Player):
           self.card_num = self.nums[play_card]
           val = False
           while val == False:
-            if current_gamestate.isCardValid(self.suits[play_card]):
+            if gamestate.isCardValid(self.suits[play_card]):
                   self.hand.remove(self.hand[play_card])
+                  gamestate.stock.remove(self.hand[play_card])
+                  gamestate.trick.append(self.hand[play_card])
                   val = True
             else:
                 play_card = int(input("invalid entry, try another card: \n"))
@@ -236,15 +238,15 @@ class Computer(Player):
             self.suits.append(suitValue)
             self.nums.append(cardValue)
            
-        current_gamestate = GameState(self.stock)
-        playableCards = []
+        #current_gamestate = GameState(self.stock)
+        #playableCards = []
         count = 0
         for item in self.suits:
             if item == current_gamestate.topSuit:
                 playableCards.append(f"{self.nums[count]} {item}\n")
             count += 1
            
-        if playableCards == []:
+        if self.playablecards == []:
             self.hand = current_gamestate.draw_card(self.hand)
         else:
           #play card

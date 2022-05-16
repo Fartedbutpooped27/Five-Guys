@@ -45,8 +45,10 @@ if __name__ == "__main__":
                 winner = gamestate.game_winner(human.hand, computer.hand)
                 if winner == None:
                         pass
-                else:
-                        print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!")
+                elif winner == "Player 1":
+                        print(f"Congrats {player1name}!! You hsve won this game of Page One! See you next time!")
+                elif winner == "Player 2":
+                        print(f"Congrats {player2name}!! You hsve won this game of Page One! See you next time!")
                 
 
         #END GAME STATEMENT
