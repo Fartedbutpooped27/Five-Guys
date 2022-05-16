@@ -111,6 +111,12 @@ class GameState:
         else:
             return 1
        
+        
+    def restock(self):
+        """ DOCSTRING"""
+        #append trick to stock
+        return None
+           
     def game_winner(p1hand, p2hand):
         """DOCSTRINGGGGG """ 
         winner = ""
