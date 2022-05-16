@@ -102,7 +102,7 @@ class GameState:
         """DOCSTRINGGGGG """ 
         self.top_suit = card_suit
     
-    def roundWinner(self, player1, player2):
+    def round_winner(self, player1, player2):
         """DOCSTRINGGGGG """ 
         cards = [player1, player2]
         winner = max (cards, key= lambda x: CARDS[x]) #Lambda
