@@ -98,7 +98,7 @@ class GameState:
           else:
             hand.remove(new_card)
             valid = True
-        print(f"you played {new_card}\n")
+        print(f"Player played {new_card}\n")
         return hand, new_card
    
     def current_top_card(self, card_suit, card_num):
