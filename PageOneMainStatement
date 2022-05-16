@@ -9,8 +9,6 @@ if __name__ == "__main__":
     #get player 1 name and create human player class
     lyst = [input("Enter the name of player 1 (Human Player): \n"), 
             input("Enter the name of player 2 (Computer Player): \n")]
-    #player1name = input("Enter the name of player 1 (Human Player): \n")
-    #player2name = input("Enter the name of player 2 (Computer Player): \n")
     player1name, player2name = lyst
     human = Human(player1name)
     computer = Computer(player2name)
