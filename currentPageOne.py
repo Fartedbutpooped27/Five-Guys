@@ -275,4 +275,52 @@ if __name__ == "__main__":
        
         player = GameState.round_winner(player1.card_num, player2.card_num)
     """       
+    print("Welcome to Page One!\n")
+    
+    #create GameState object
+    gamestate = GameState()
+    
+    #get player 1 name and create human player class
+    lyst = [input("Enter the name of player 1 (Human Player): \n"), 
+    input("Enter the name of player 2 (Computer Player): \n")]
+    player1name, player2name = lyst
+    human = Human(player1name)
+    computer = Computer(player2name)
 
+    #deal hands
+    players = (human, computer)
+    for item in players:
+        new_hand = gamestate.deal_hand()
+        for card in new_hand:
+            item.hand.append(card)
+
+    #BIG LOOP RUNNING THE GAME
+    ##########################
+    #begin loop, set play = False later to end game/while loop
+    play = True
+    player = 0 #sets game to have player 1 go first
+    print(f"{player1name} goes first!") #tells player to go first
+    while play:
+        #check previous round winner to see who goes first next
+        player = gamestate.round_winner(human, computer)
+        #run each player's turn
+        if player == 0:
+                human.take_turn()
+                computer.take_turn()
+                #top_card = player1.top_card
+                #player = 1 - player
+        elif player == 1:
+                computer.take_turn()
+                human.take_turn()
+                #top_card = player2.top_card
+                #player = 1 - player
+        #see if either player won the game (empty hand)
+        winner = gamestate.game_winner(human.hand, computer.hand)
+        if winner == None:
+            pass
+        else:
+            print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!")
+                
+
+    #END GAME STATEMENT
+    print("Thank you for playing Page One!")
