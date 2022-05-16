@@ -136,22 +136,33 @@ class Player:
     def __init__(self, deck, player_name="no_name"):
         """DOCSTRINGGGGG """ 
         #init player name
+        #self.stock = []
+        #for i in deck:
+        #    self.stock.append(i)
+        # self.starting_hand = []  
         self.player_name = player_name
-        self.stock = []
         self.hand = []
         self.top_card = ""
         self.chosenCard = ""
         self.suits = []
         self.nums = []
-       
-        for i in deck:
-            self.stock.append(i)
-       
-        # self.starting_hand = []       
+        self.playablecards = []
+
+    def playable_cards(self, game):
+        """takes gamestate (initialized in main statement) and returns
+        a list of any playable cards
+            
+        Args:
+            game (GameState) : current gamestate
+        """
+        pass
+    
+    def nums_and_suits(self):
+        pass     
    
 class Human(Player):
     """DOCSTRINGGGGG """ 
-    def take_turn(self):
+    def take_turn(self, gamestate):
         """DOCSTRINGGGGG """ 
         #get gamestate
         #check player's hand for playable cards
@@ -185,8 +196,10 @@ class Human(Player):
             if item == current_gamestate.topSuit:
                 playableCards.append(f"{self.nums[count]} {item}\n")
             count += 1
+            
+        super.playable_cards(gamestate)
        
-        if playableCards == []:
+        if self.playablecards == []:
             print("you must draw until playable card appears\n")
             self.hand = current_gamestate.draw_card(self.hand)
             print(f"your new current hand: {self.hand}\n")
