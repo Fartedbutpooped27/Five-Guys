@@ -35,7 +35,7 @@ FACES = [
 #        deck.append(f"{i} {f}")
 
 #CREAT DECK FUNCTION
-def createdeck(file):
+def createdeck():
     deck = []
     file = "deck.txt"
     with open(file, 'r', encoding = 'utf-8') as f:
@@ -54,7 +54,7 @@ def createdeck(file):
    
 class GameState:
     """DOCSTRINGGGGG """ 
-    def __init__(self, deck):
+    def __init__(self):
         """DOCSTRINGGGGG """ 
         self.top_suit = ""
         self.high_card = ""
@@ -70,7 +70,7 @@ class GameState:
         """DOCSTRINGGGG """
         return (f"The current top card is: {self.top_card}")
 
-    def dealCard(self):
+    def deal_hand(self):
         hand = []
         count = 4
         while count > 0:
@@ -102,7 +102,7 @@ class GameState:
         """DOCSTRINGGGGG """ 
         self.top_suit = card_suit
     
-    def roundWinner(self, player1, player2):
+    def round_winner(self, player1, player2):
         """DOCSTRINGGGGG """ 
         cards = [player1, player2]
         winner = max (cards, key= lambda x: CARDS[x]) #Lambda
