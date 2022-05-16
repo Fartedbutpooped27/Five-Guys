@@ -210,10 +210,10 @@ class Human(Player):
           val = False
           while val == False:
             if gamestate.isCardValid(self.suits[play_card]):
-                  self.hand.remove(self.hand[play_card])
-                  gamestate.stock.remove(self.hand[play_card])
-                  gamestate.trick.append(self.hand[play_card])
-                  val = True
+                self.hand.remove(self.hand[play_card])
+                gamestate.stock.remove(self.hand[play_card])
+                gamestate.trick.append(self.hand[play_card])
+                val = True
             else:
                 play_card = int(input("invalid entry, try another card: \n"))
                
@@ -221,35 +221,27 @@ class Computer(Player):
     """DOCSTRINGGGGG """ 
     def take_turn(self):
         """DOCSTRINGGGGG """ 
-        print(f"Top Suit: {self.topSuit}\n")
         print(f"start turn hand: {self.hand}\n")
        
         #create match groups for future use
         #^DONE IN Player CLASS INIT
         #self.suits = []
         #self.nums = []
-        
-        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
-        for element in self.hand:
-            match = re.search(expr, element)
-            cardValue = match.group("cardValue")
-            suitValue = match.group("suitValue")
-            self.suits.append(suitValue)
-            self.nums.append(cardValue)
-           
-        #current_gamestate = GameState(self.stock)
-        #playableCards = []
-        count = 0
-        for item in self.suits:
-            if item == current_gamestate.topSuit:
-                playableCards.append(f"{self.nums[count]} {item}\n")
-            count += 1
+            
+        #set up self.nums, self.suits, and self.playablecards
+        super.nums_and_suits()
+        super.playable_cards(gamestate)
            
         if self.playablecards == []:
-            self.hand = current_gamestate.draw_card(self.hand)
+            print("Computer must draw until playable card appears\n")
+            self.hand = gamestate.draw_card(self.hand)
+            print(f"Computer's new current hand: {self.hand}\n")
         else:
-          #play card
-          play_card = random.choice(playableCards)
+            #play card
+            play_card = random.choice(self.playablecards)
+            self.hand.remove(self.hand[play_card])
+            gamestate.stock.remove(self.hand[play_card])
+            gamestate.trick.append(self.hand[play_card])
  
 if __name__ == "__main__":
     """
@@ -319,15 +311,17 @@ if __name__ == "__main__":
         player = gamestate.round_winner(human, computer)
         #run each player's turn
         if player == 0:
-                human.take_turn()
-                computer.take_turn()
-                #top_card = player1.top_card
-                #player = 1 - player
+            print(f"Top Suit: {gamestate.top_suit}\n")
+            human.take_turn()
+            computer.take_turn()
+            #top_card = player1.top_card
+            #player = 1 - player
         elif player == 1:
-                computer.take_turn()
-                human.take_turn()
-                #top_card = player2.top_card
-                #player = 1 - player
+            print(f"Top Suit: {gamestate.top_suit}\n")
+            computer.take_turn()
+            human.take_turn()
+            #top_card = player2.top_card
+            #player = 1 - player
         #see if either player won the game (empty hand)
         winner = gamestate.game_winner(human.hand, computer.hand)
         if winner == None:
