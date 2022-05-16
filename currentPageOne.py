@@ -110,7 +110,12 @@ class GameState:
             return 0
         else:
             return 1
-       
+        
+    def restock(self):
+        """ DOCSTRING"""
+        #append trick to stock
+        return None
+           
     def game_winner():
         """DOCSTRINGGGGG """ 
         pass  
