@@ -87,6 +87,7 @@ class GameState:
         #suit = []
         hand = []
         new_card = random.choice(self.stock)
+        self.stock.remove(new_card)
         valid = False
         while valid == False:
           #print(f"new card 1 {new_card}")
@@ -96,7 +97,8 @@ class GameState:
             hand.append(new_card)
             self.stock.remove(new_card)
           else:
-            hand.remove(new_card)
+            #hand.remove(new_card)
+            hand.append(new_card)
             valid = True
         print(f"Player played {new_card}\n")
         return hand, new_card
@@ -211,7 +213,9 @@ class Human(Player):
         if self.playablecards == [] and gamestate.top_suit != "":
             print("you must draw until playable card appears\n")
             #self.hand = gamestate.draw_card(self.hand)
-            for i in gamestate.draw_card(self.hand):
+            lyst, new_card = gamestate.draw_card(self.hand)
+            print(new_card)
+            for i in lyst:
                 self.hand.append(i)
             print(f"your new current hand: {self.hand}\n")
         else:
@@ -252,9 +256,13 @@ class Computer(Player):
             print("Computer must draw until playable card appears\n")
             #self.hand = gamestate.draw_card(self.hand)
             lyst, new_card = gamestate.draw_card(self.hand)
-            self.play_card = self.hand.index[new_card]
+            print(new_card)
+            print(self.hand)
             for i in lyst:
                 self.hand.append(i)
+            self.play_card = self.hand.index(new_card)
+            print(f"PLAY CARD: {self.play_card}") #{self.play_card}
+            self.hand.remove(self.hand[self.play_card])
             print(f"Computer's new current hand: {self.hand}\n")
         else:
             #play card
