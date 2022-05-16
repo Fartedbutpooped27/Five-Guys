@@ -3,11 +3,20 @@
 if __name__ == "__main__":
     print("Welcome to Page One!\n")
     
+    #create GameState object
+    gamestate = GameState()
+    
     #get player 1 name and create human player class
     player1name = input("Enter the name of player 1 (Human Player): \n")
     player2name = input("Enter the name of player 2 (Computer Player): \n")
     human = Human(player1name)
     computer = Computer(player2name)
     
-    #create GameState object
-    gamestate = GameState()
+    #deal hands
+    players = (human, computer)
+    for item in players:
+            new_hand = gamestate.deal_hand()
+            for card in new_hand:
+                item.hand.append(card)
+    
+    
