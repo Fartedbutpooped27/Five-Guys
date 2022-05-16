@@ -70,7 +70,7 @@ class GameState:
         """DOCSTRINGGGG """
         return (f"The current top card is: {self.top_card}")
 
-    def dealCard(self):
+    def deal_hand(self):
         hand = []
         count = 4
         while count > 0:
