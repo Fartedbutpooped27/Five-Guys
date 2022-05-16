@@ -155,10 +155,24 @@ class Player:
         Args:
             game (GameState) : current gamestate
         """
-        pass
+        #check for playable cards
+        #current_gamestate = GameState(self.stock)
+        #playableCards = []
+        count = 0
+        for item in self.suits:
+            if item == gamestate.top_suit:
+                self.playablecards.append(f"{self.nums[count]} {item}\n")
+            count += 1
     
     def nums_and_suits(self):
-        pass     
+        """DOCSTRINGGG"""
+        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
+        for element in self.hand:
+            match = re.search(expr, element)
+            cardValue = match.group("cardValue")
+            suitValue = match.group("suitValue")
+            self.suits.append(suitValue)
+            self.nums.append(cardValue)    
    
 class Human(Player):
     """DOCSTRINGGGGG """ 
@@ -180,23 +194,8 @@ class Human(Player):
         #self.suits = []
         #self.nums = []
         
-        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
-        for element in self.hand:
-            match = re.search(expr, element)
-            cardValue = match.group("cardValue")
-            suitValue = match.group("suitValue")
-            self.suits.append(suitValue)
-            self.nums.append(cardValue)
-       
-        #check for playable cards
-        #current_gamestate = GameState(self.stock)
-        playableCards = []
-        count = 0
-        for item in self.suits:
-            if item == gamestate.top_suit:
-                playableCards.append(f"{self.nums[count]} {item}\n")
-            count += 1
-            
+        #set up self.nums, self.suits, and self.playablecards
+        super.nums_and_suits()
         super.playable_cards(gamestate)
        
         if self.playablecards == []:
