@@ -35,7 +35,7 @@ FACES = [
 #        deck.append(f"{i} {f}")
 
 #CREAT DECK FUNCTION
-def createdeck(file):
+def createdeck():
     deck = []
     file = "deck.txt"
     with open(file, 'r', encoding = 'utf-8') as f:
