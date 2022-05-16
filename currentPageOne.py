@@ -254,6 +254,7 @@ class Computer(Player):
         else:
             #play card
             self.play_card = self.playablecards.index(random.choice(self.playablecards))
+            print(self.play_card)
             #print(f"COMPUTER PLAY CARD VALUE: {self.play_card}")
             #self.card_index = self.playablecards.index[self.play_card]
             self.card_suit = self.suits[self.play_card]
