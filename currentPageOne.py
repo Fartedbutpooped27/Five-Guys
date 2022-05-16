@@ -238,6 +238,7 @@ class Computer(Player):
           play_card = random.choice(playableCards)
  
 if __name__ == "__main__":
+    """
     #stock = []
     #for i in deck:
     #   stock.append(i)
@@ -273,5 +274,5 @@ if __name__ == "__main__":
      
        
         player = GameState.round_winner(player1.card_num, player2.card_num)
-       
+    """       
 
