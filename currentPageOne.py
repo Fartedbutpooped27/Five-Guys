@@ -38,8 +38,11 @@ FACES = [
 def createdeck():
     deck = []
     file = "deck.txt"
-    with open(file, 'r', encoding = 'utf-8') as f:
-        for line in f:
+    with open(file, 'r', encoding = 'utf-8-sig') as f:
+        lines = f.read().splitlines()
+        for line in lines:
+            line.strip('\n')
+            line.strip('ufeff')
             deck.append(line)
     return deck
 
@@ -58,7 +61,6 @@ class GameState:
         """DOCSTRINGGGGG """ 
         self.top_suit = ""
         self.high_card = ""
-        self.top_card = (f"{self.high_card} {self.top_suit}")
         self.trick = []
         self.stock = []
         #for i in deck:
@@ -83,6 +85,7 @@ class GameState:
     def draw_card(self, hand):     
         """DOCSTRINGGGGG """
         #suit = []
+        hand = []
         new_card = random.choice(self.stock)
         valid = False
         while valid == False:
@@ -96,11 +99,13 @@ class GameState:
             hand.remove(new_card)
             valid = True
         print(f"you played {new_card}\n")
-        return hand
+        return hand, new_card
    
-    def Current_top_card(self, card_suit):
+    def current_top_card(self, card_suit, card_num):
         """DOCSTRINGGGGG """ 
         self.top_suit = card_suit
+        self.high_card = card_num
+        self.top_card = (f"{self.high_card} {self.top_suit}")
     
     def round_winner(self, player1, player2):
         """DOCSTRINGGGGG """ 
@@ -110,15 +115,14 @@ class GameState:
             return 0
         else:
             return 1
-       
-        
+     
     def restock(self):
         """DOCSTRING"""
         for card in self.trick:
             self.stock.append(card)
             self.trick.remove(card)
            
-    def game_winner(p1hand, p2hand):
+    def game_winner(self, p1hand, p2hand):
         """DOCSTRINGGGGG """ 
         winner = "Player 1" if p1hand == [] else "Player 2" if p2hand == [] else None
         return winner
@@ -147,6 +151,8 @@ class Player:
         self.suits = []
         self.nums = []
         self.playablecards = []
+        self.play_card = ""
+        self.card_index = 0
 
     def playable_cards(self, game):
         """takes gamestate (initialized in main statement) and returns
@@ -195,31 +201,36 @@ class Human(Player):
         #self.nums = []
         
         #set up self.nums, self.suits, and self.playablecards
-        super.nums_and_suits()
-        super.playable_cards(gamestate)
+        self.nums_and_suits()
+        self.playable_cards(gamestate)
        
-        if self.playablecards == []:
+        
+        if self.playablecards == [] and gamestate.top_suit != "":
             print("you must draw until playable card appears\n")
-            self.hand = gamestate.draw_card(self.hand)
+            #self.hand = gamestate.draw_card(self.hand)
+            for i in gamestate.draw_card(self.hand):
+                self.hand.append(i)
             print(f"your new current hand: {self.hand}\n")
         else:
-          #play card
-          play_card = int(input("please enter the index of a card to play: \n"))
-          self.card_suit = self.suits[play_card]
-          self.card_num = self.nums[play_card]
-          val = False
-          while val == False:
-            if gamestate.isCardValid(self.suits[play_card]):
-                self.hand.remove(self.hand[play_card])
-                gamestate.stock.remove(self.hand[play_card])
-                gamestate.trick.append(self.hand[play_card])
-                val = True
-            else:
-                play_card = int(input("invalid entry, try another card: \n"))
+            #play card
+            self.play_card = int(input("please enter the index of a card to play: \n"))
+            self.card_suit = self.suits[self.play_card]
+            self.card_num = self.nums[self.play_card]
+            val = False
+            while val == False:
+                if gamestate.isCardValid(self.suits[self.play_card]) or gamestate.top_suit == "":
+                    #gamestate.stock.remove(self.hand[self.play_card])
+                    gamestate.current_top_card(self.card_suit, self.card_num)
+                    gamestate.trick.append(self.hand[self.play_card])
+                    self.hand.remove(self.hand[self.play_card])
+                    print(f"PLAYER HANDDDD: {self.hand}\n")
+                    val = True
+                else:
+                    self.play_card = int(input("invalid entry, try another card: \n"))
                
 class Computer(Player):
     """DOCSTRINGGGGG """ 
-    def take_turn(self):
+    def take_turn(self, gamestate):
         """DOCSTRINGGGGG """ 
         print(f"start turn hand: {self.hand}\n")
        
@@ -229,19 +240,29 @@ class Computer(Player):
         #self.nums = []
             
         #set up self.nums, self.suits, and self.playablecards
-        super.nums_and_suits()
-        super.playable_cards(gamestate)
+        self.nums_and_suits()
+        self.playable_cards(gamestate)
            
         if self.playablecards == []:
             print("Computer must draw until playable card appears\n")
-            self.hand = gamestate.draw_card(self.hand)
+            #self.hand = gamestate.draw_card(self.hand)
+            lyst, new_card = gamestate.draw_card(self.hand)
+            self.play_card = self.hand[new_card]
+            for i in lyst:
+                self.hand.append(i)
             print(f"Computer's new current hand: {self.hand}\n")
         else:
             #play card
-            play_card = random.choice(self.playablecards)
-            self.hand.remove(self.hand[play_card])
-            gamestate.stock.remove(self.hand[play_card])
-            gamestate.trick.append(self.hand[play_card])
+            self.play_card = self.playablecards.index(random.choice(self.playablecards))
+            #print(f"COMPUTER PLAY CARD VALUE: {self.play_card}")
+            #self.card_index = self.playablecards.index[self.play_card]
+            self.card_suit = self.suits[self.play_card]
+            self.card_num = self.nums[self.play_card]
+            #gamestate.stock.remove(self.play_card) #gamestate.stock.remove(self.hand[self.play_card])
+            gamestate.current_top_card(self.card_suit, self.card_num)
+            gamestate.trick.append(self.hand[self.play_card]) #gamestate.trick.append(self.hand[self.play_card])
+            self.hand.remove(self.hand[self.play_card]) #self.hand.remove(self.hand[self.play_card])
+            print(f"COMP HANDDDD: {self.hand}\n")
  
 if __name__ == "__main__":
     """
@@ -307,27 +328,34 @@ if __name__ == "__main__":
     player = 0 #sets game to have player 1 go first
     print(f"{player1name} goes first!\n") #tells player to go first
     while play:
-        #check previous round winner to see who goes first next
-        player = gamestate.round_winner(human, computer)
+        #reset top_suit
+        gamestate.top_suit = ""
+        #print(f"{human.play_card} | {computer.play_card}")
         #run each player's turn
         if player == 0:
-            print(f"Top Suit: {gamestate.top_suit}\n")
-            human.take_turn()
-            computer.take_turn()
+            #print(f"Top Suit: {gamestate.top_suit}\n")
+            print(f"NEW ROUND: {player1name}'S TURN\n")
+            human.take_turn(gamestate)
+            print(f"New Top Card: {gamestate.top_card}\n")
+            computer.take_turn(gamestate)
             #top_card = player1.top_card
             #player = 1 - player
         elif player == 1:
-            print(f"Top Suit: {gamestate.top_suit}\n")
-            computer.take_turn()
-            human.take_turn()
+            #print(f"Top Suit: {gamestate.top_suit}\n")
+            print(f"NEW ROUND: {player2name}'S TURN\n")
+            computer.take_turn(gamestate)
+            print(f"New Top Card: {gamestate.top_card}\n")
+            human.take_turn(gamestate)
             #top_card = player2.top_card
             #player = 1 - player
         #see if either player won the game (empty hand)
+        player = gamestate.round_winner(human.nums[human.play_card], computer.nums[computer.play_card])
         winner = gamestate.game_winner(human.hand, computer.hand)
         if winner == None:
             pass
         else:
             print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!\n")
+            play = False
                 
 
     #END GAME STATEMENT
