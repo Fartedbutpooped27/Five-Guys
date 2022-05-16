@@ -172,6 +172,8 @@ class Player:
     
     def nums_and_suits(self):
         """DOCSTRINGGG"""
+        self.suits = []
+        self.nums = []
         expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
         for element in self.hand:
             match = re.search(expr, element)
@@ -203,7 +205,8 @@ class Human(Player):
         #set up self.nums, self.suits, and self.playablecards
         self.nums_and_suits()
         self.playable_cards(gamestate)
-       
+        print(f"NUMS LIST: {self.nums}")
+        print(f"SUITS LIST: {self.suits}")
         
         if self.playablecards == [] and gamestate.top_suit != "":
             print("you must draw until playable card appears\n")
@@ -242,23 +245,27 @@ class Computer(Player):
         #set up self.nums, self.suits, and self.playablecards
         self.nums_and_suits()
         self.playable_cards(gamestate)
+        print(f"NUMS LIST: {self.nums}")
+        print(f"SUITS LIST: {self.suits}")   
            
         if self.playablecards == []:
             print("Computer must draw until playable card appears\n")
             #self.hand = gamestate.draw_card(self.hand)
             lyst, new_card = gamestate.draw_card(self.hand)
-            self.play_card = self.hand[new_card]
+            self.play_card = self.hand.index[new_card]
             for i in lyst:
                 self.hand.append(i)
             print(f"Computer's new current hand: {self.hand}\n")
         else:
             #play card
             self.play_card = self.playablecards.index(random.choice(self.playablecards))
-            print(self.play_card)
+            print(f"COMPUTER PLAY CAR VALUE: {self.play_card}\n")
             #print(f"COMPUTER PLAY CARD VALUE: {self.play_card}")
             #self.card_index = self.playablecards.index[self.play_card]
             self.card_suit = self.suits[self.play_card]
             self.card_num = self.nums[self.play_card]
+            print(f"COMPUTER CARD_NUM VALUE: {self.card_num}")
+            print(f"COMPUTER CARD_SUIT VALUE: {self.card_suit}")
             #gamestate.stock.remove(self.play_card) #gamestate.stock.remove(self.hand[self.play_card])
             gamestate.current_top_card(self.card_suit, self.card_num)
             gamestate.trick.append(self.hand[self.play_card]) #gamestate.trick.append(self.hand[self.play_card])
@@ -354,10 +361,12 @@ if __name__ == "__main__":
         winner = gamestate.game_winner(human.hand, computer.hand)
         if winner == None:
             pass
-        else:
-            print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!\n")
+        elif winner == "Player 1":
+            print(f"Congrats {player1name}!! You hsve won this game of Page One! See you next time!")
             play = False
-                
+        elif winner == "Player 2":
+            print(f"Congrats {player2name}!! You hsve won this game of Page One! See you next time!")
+            play = False    
 
     #END GAME STATEMENT
     print("Thank you for playing Page One!\n")
