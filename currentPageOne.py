@@ -119,8 +119,7 @@ class GameState:
            
     def game_winner(p1hand, p2hand):
         """DOCSTRINGGGGG """ 
-        winner = ""
-        winner = ("Player 1") if (p1hand == []) else winner = "Player 2"
+        winner = "Player 1" if p1hand == [] else "Player 2" if p2hand == [] else None
         return winner
   
     def isCardValid(self, card):
