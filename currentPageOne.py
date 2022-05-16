@@ -299,7 +299,7 @@ if __name__ == "__main__":
     #begin loop, set play = False later to end game/while loop
     play = True
     player = 0 #sets game to have player 1 go first
-    print(f"{player1name} goes first!") #tells player to go first
+    print(f"{player1name} goes first!\n") #tells player to go first
     while play:
         #check previous round winner to see who goes first next
         player = gamestate.round_winner(human, computer)
@@ -319,8 +319,8 @@ if __name__ == "__main__":
         if winner == None:
             pass
         else:
-            print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!")
+            print(f"Congrats {winner}!! You hsve won this game of Page One! See you next time!\n")
                 
 
     #END GAME STATEMENT
-    print("Thank you for playing Page One!")
+    print("Thank you for playing Page One!\n")
