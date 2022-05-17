@@ -91,16 +91,18 @@ class GameState:
         valid = False
         while valid == False:
           #print(f"new card 1 {new_card}")
+          hand.append(new_card)
           if self.top_suit not in new_card:
+            #hand.append(new_card)
             new_card = random.choice(self.stock)
             #print(f"new card 2 {new_card}")
-            hand.append(new_card)
             self.stock.remove(new_card)
           else:
             #hand.remove(new_card)
-            hand.append(new_card)
+            #hand.append(new_card)
             valid = True
         print(f"Player played {new_card}\n")
+        print(f"HAND: {hand}")
         return hand, new_card
    
     def current_top_card(self, card_suit, card_num):
@@ -172,12 +174,12 @@ class Player:
                 self.playablecards.append(f"{self.nums[count]} {item}\n")
             count += 1
     
-    def nums_and_suits(self):
+    def nums_and_suits(self, hand):
         """DOCSTRINGGG"""
-        self.suits = []
-        self.nums = []
+        #self.suits = []
+        #self.nums = []
         expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
-        for element in self.hand:
+        for element in hand:
             match = re.search(expr, element)
             cardValue = match.group("cardValue")
             suitValue = match.group("suitValue")
@@ -205,7 +207,9 @@ class Human(Player):
         #self.nums = []
         
         #set up self.nums, self.suits, and self.playablecards
-        self.nums_and_suits()
+        self.suits = []
+        self.nums = []
+        self.nums_and_suits(self.hand)
         self.playable_cards(gamestate)
         print(f"NUMS LIST: {self.nums}")
         print(f"SUITS LIST: {self.suits}")
@@ -247,7 +251,9 @@ class Computer(Player):
         #self.nums = []
             
         #set up self.nums, self.suits, and self.playablecards
-        self.nums_and_suits()
+        self.suits = []
+        self.nums = []
+        self.nums_and_suits(self.hand)
         self.playable_cards(gamestate)
         print(f"NUMS LIST: {self.nums}")
         print(f"SUITS LIST: {self.suits}")   
@@ -260,10 +266,12 @@ class Computer(Player):
             print(self.hand)
             for i in lyst:
                 self.hand.append(i)
-            self.play_card = self.hand.index(new_card)
-            print(f"PLAY CARD: {self.play_card}") #{self.play_card}
-            self.hand.remove(self.play_card)
+            self.play_card = new_card
+            print(f"PLAY CARD: {self.play_card}\n") #{self.play_card}
             print(f"Computer's new current hand: {self.hand}\n")
+            new_card_lyst = [new_card]
+            self.nums_and_suits(new_card_lyst)
+            self.hand.remove(self.play_card)
         else:
             #play card
             self.play_card = self.playablecards.index(random.choice(self.playablecards))
@@ -365,7 +373,7 @@ if __name__ == "__main__":
             #top_card = player2.top_card
             #player = 1 - player
         #see if either player won the game (empty hand)
-        player = gamestate.round_winner(human.nums[human.play_card], computer.nums[computer.play_card])
+        player = gamestate.round_winner(human.nums[human.play_card], computer.nums[-1])
         winner = gamestate.game_winner(human.hand, computer.hand)
         if winner == None:
             pass
