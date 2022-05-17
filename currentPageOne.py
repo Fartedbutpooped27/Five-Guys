@@ -263,7 +263,7 @@ class Computer(Player):
         #print(f"NUMS LIST: {self.nums}")
         #print(f"SUITS LIST: {self.suits}")   
            
-        if self.playablecards == [] or gamestate.top_suit == "":
+        if self.playablecards == [] and gamestate.top_suit != "":
             print("Computer must draw until playable card appears\n")
             #self.hand = gamestate.draw_card(self.hand)
             lyst, new_card = gamestate.draw_card(self.hand)
@@ -281,7 +281,7 @@ class Computer(Player):
             self.card_suit = self.suits[self.hand.index(self.play_card)]
             self.card_num = self.nums[self.hand.index(self.play_card)]
             gamestate.current_top_card(self.card_suit, self.card_num)
-            print(f"Computer played: {self.play_card}\n")
+            #print(f"Computer played: {self.play_card}\n")
             self.hand.remove(self.play_card)
         else:
             #play card
@@ -307,7 +307,7 @@ class Computer(Player):
                     self.card_num = self.nums[self.play_card]
                     
             #print(f"COMP HANDDDD: {self.hand}\n")
-            print(f"Computer played: {self.hand[self.play_card]}\n")
+            #print(f"Computer played: {self.hand[self.play_card]}\n")
  
 if __name__ == "__main__":
     """
