@@ -47,3 +47,4 @@ There is a logic error in which the computer would not understand to play a card
 This would result in the program randomly refusing to run.  If this happens, please close terminal and run program again.
 
 P.S (We spent 3 hours trying to track this logic error, with no progress, so we had to settle with this current version)
+ 
