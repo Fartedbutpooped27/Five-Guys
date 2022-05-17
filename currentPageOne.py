@@ -35,14 +35,11 @@ FACES = [
 #        deck.append(f"{i} {f}")
 
 #CREAT DECK FUNCTION
-def createdeck():
+def createdeck(file):
     deck = []
     file = "deck.txt"
-    with open(file, 'r', encoding = 'utf-8-sig') as f:
-        lines = f.read().splitlines()
-        for line in lines:
-            line.strip('\n')
-            line.strip('ufeff')
+    with open(file, 'r', encoding = 'utf-8') as f:
+        for line in f:
             deck.append(line)
     return deck
 
@@ -57,10 +54,11 @@ def createdeck():
    
 class GameState:
     """DOCSTRINGGGGG """ 
-    def __init__(self):
+    def __init__(self, deck):
         """DOCSTRINGGGGG """ 
         self.top_suit = ""
         self.high_card = ""
+        self.top_card = (f"{self.high_card} {self.top_suit}")
         self.trick = []
         self.stock = []
         #for i in deck:
@@ -72,7 +70,7 @@ class GameState:
         """DOCSTRINGGGG """
         return (f"The current top card is: {self.top_card}")
 
-    def deal_hand(self):
+    def dealCard(self):
         hand = []
         count = 4
         while count > 0:
@@ -85,33 +83,26 @@ class GameState:
     def draw_card(self, hand):     
         """DOCSTRINGGGGG """
         #suit = []
-        hand = []
         new_card = random.choice(self.stock)
-        self.stock.remove(new_card)
         valid = False
         while valid == False:
           #print(f"new card 1 {new_card}")
-          hand.append(new_card)
           if self.top_suit not in new_card:
-            #hand.append(new_card)
             new_card = random.choice(self.stock)
             #print(f"new card 2 {new_card}")
+            hand.append(new_card)
             self.stock.remove(new_card)
           else:
-            #hand.remove(new_card)
-            #hand.append(new_card)
+            hand.remove(new_card)
             valid = True
-        print(f"Player played {new_card}\n")
-        print(f"HAND: {hand}")
-        return hand, new_card
+        print(f"you played {new_card}\n")
+        return hand
    
-    def current_top_card(self, card_suit, card_num):
+    def Current_top_card(self, card_suit):
         """DOCSTRINGGGGG """ 
         self.top_suit = card_suit
-        self.high_card = card_num
-        self.top_card = (f"{self.high_card} {self.top_suit}")
     
-    def round_winner(self, player1, player2):
+    def roundWinner(self, player1, player2):
         """DOCSTRINGGGGG """ 
         cards = [player1, player2]
         winner = max (cards, key= lambda x: CARDS[x]) #Lambda
@@ -119,14 +110,15 @@ class GameState:
             return 0
         else:
             return 1
-     
+       
+        
     def restock(self):
         """DOCSTRING"""
         for card in self.trick:
             self.stock.append(card)
             self.trick.remove(card)
            
-    def game_winner(self, p1hand, p2hand):
+    def game_winner(p1hand, p2hand):
         """DOCSTRINGGGGG """ 
         winner = "Player 1" if p1hand == [] else "Player 2" if p2hand == [] else None
         return winner
@@ -144,51 +136,22 @@ class Player:
     def __init__(self, deck, player_name="no_name"):
         """DOCSTRINGGGGG """ 
         #init player name
-        #self.stock = []
-        #for i in deck:
-        #    self.stock.append(i)
-        # self.starting_hand = []  
         self.player_name = player_name
+        self.stock = []
         self.hand = []
         self.top_card = ""
         self.chosenCard = ""
         self.suits = []
         self.nums = []
-        self.playablecards = []
-        self.play_card = ""
-        self.card_index = 0
-
-    def playable_cards(self, game):
-        """takes gamestate (initialized in main statement) and returns
-        a list of any playable cards
-            
-        Args:
-            game (GameState) : current gamestate
-        """
-        #check for playable cards
-        #current_gamestate = GameState(self.stock)
-        #playableCards = []
-        count = 0
-        for item in self.suits:
-            if item == gamestate.top_suit:
-                self.playablecards.append(f"{self.nums[count]} {item}\n")
-            count += 1
-    
-    def nums_and_suits(self, hand):
-        """DOCSTRINGGG"""
-        #self.suits = []
-        #self.nums = []
-        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
-        for element in hand:
-            match = re.search(expr, element)
-            cardValue = match.group("cardValue")
-            suitValue = match.group("suitValue")
-            self.suits.append(suitValue)
-            self.nums.append(cardValue)    
+       
+        for i in deck:
+            self.stock.append(i)
+       
+        # self.starting_hand = []       
    
 class Human(Player):
     """DOCSTRINGGGGG """ 
-    def take_turn(self, gamestate):
+    def take_turn(self):
         """DOCSTRINGGGGG """ 
         #get gamestate
         #check player's hand for playable cards
@@ -206,90 +169,75 @@ class Human(Player):
         #self.suits = []
         #self.nums = []
         
-        #set up self.nums, self.suits, and self.playablecards
-        self.suits = []
-        self.nums = []
-        self.nums_and_suits(self.hand)
-        self.playable_cards(gamestate)
-        print(f"NUMS LIST: {self.nums}")
-        print(f"SUITS LIST: {self.suits}")
-        
-        if self.playablecards == [] and gamestate.top_suit != "":
+        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
+        for element in self.hand:
+            match = re.search(expr, element)
+            cardValue = match.group("cardValue")
+            suitValue = match.group("suitValue")
+            self.suits.append(suitValue)
+            self.nums.append(cardValue)
+       
+        #check for playable cards
+        current_gamestate = GameState(self.stock)
+        playableCards = []
+        count = 0
+        for item in self.suits:
+            if item == current_gamestate.topSuit:
+                playableCards.append(f"{self.nums[count]} {item}\n")
+            count += 1
+       
+        if playableCards == []:
             print("you must draw until playable card appears\n")
-            #self.hand = gamestate.draw_card(self.hand)
-            lyst, new_card = gamestate.draw_card(self.hand)
-            print(new_card)
-            for i in lyst:
-                self.hand.append(i)
+            self.hand = current_gamestate.draw_card(self.hand)
             print(f"your new current hand: {self.hand}\n")
         else:
-            #play card
-            self.play_card = int(input("please enter the index of a card to play: \n"))
-            self.card_suit = self.suits[self.play_card]
-            self.card_num = self.nums[self.play_card]
-            val = False
-            while val == False:
-                if gamestate.isCardValid(self.suits[self.play_card]) or gamestate.top_suit == "":
-                    #gamestate.stock.remove(self.hand[self.play_card])
-                    gamestate.current_top_card(self.card_suit, self.card_num)
-                    gamestate.trick.append(self.hand[self.play_card])
-                    self.hand.remove(self.hand[self.play_card])
-                    print(f"PLAYER HANDDDD: {self.hand}\n")
-                    val = True
-                else:
-                    self.play_card = int(input("invalid entry, try another card: \n"))
+          #play card
+          play_card = int(input("please enter the index of a card to play: \n"))
+          self.card_suit = self.suits[play_card]
+          self.card_num = self.nums[play_card]
+          val = False
+          while val == False:
+            if current_gamestate.isCardValid(self.suits[play_card]):
+                  self.hand.remove(self.hand[play_card])
+                  val = True
+            else:
+                play_card = int(input("invalid entry, try another card: \n"))
                
 class Computer(Player):
     """DOCSTRINGGGGG """ 
-    def take_turn(self, gamestate):
+    def take_turn(self):
         """DOCSTRINGGGGG """ 
+        print(f"Top Suit: {self.topSuit}\n")
         print(f"start turn hand: {self.hand}\n")
        
         #create match groups for future use
         #^DONE IN Player CLASS INIT
         #self.suits = []
         #self.nums = []
-            
-        #set up self.nums, self.suits, and self.playablecards
-        self.suits = []
-        self.nums = []
-        self.nums_and_suits(self.hand)
-        self.playable_cards(gamestate)
-        print(f"NUMS LIST: {self.nums}")
-        print(f"SUITS LIST: {self.suits}")   
+        
+        expr = r"(?P<cardValue>^\S*)\s(?P<suitValue>\S*)"
+        for element in self.hand:
+            match = re.search(expr, element)
+            cardValue = match.group("cardValue")
+            suitValue = match.group("suitValue")
+            self.suits.append(suitValue)
+            self.nums.append(cardValue)
            
-        if self.playablecards == []:
-            print("Computer must draw until playable card appears\n")
-            #self.hand = gamestate.draw_card(self.hand)
-            lyst, new_card = gamestate.draw_card(self.hand)
-            print(new_card)
-            print(self.hand)
-            for i in lyst:
-                self.hand.append(i)
-            self.play_card = new_card
-            print(f"PLAY CARD: {self.play_card}\n") #{self.play_card}
-            print(f"Computer's new current hand: {self.hand}\n")
-            new_card_lyst = [new_card]
-            self.nums_and_suits(new_card_lyst)
-            self.hand.remove(self.play_card)
+        current_gamestate = GameState(self.stock)
+        playableCards = []
+        count = 0
+        for item in self.suits:
+            if item == current_gamestate.topSuit:
+                playableCards.append(f"{self.nums[count]} {item}\n")
+            count += 1
+           
+        if playableCards == []:
+            self.hand = current_gamestate.draw_card(self.hand)
         else:
-            #play card
-            self.play_card = self.playablecards.index(random.choice(self.playablecards))
-            print(f"COMPUTER PLAY CAR VALUE: {self.play_card}\n")
-            #print(f"COMPUTER PLAY CARD VALUE: {self.play_card}")
-            #self.card_index = self.playablecards.index[self.play_card]
-            self.card_suit = self.suits[self.play_card]
-            self.card_num = self.nums[self.play_card]
-            print(f"COMPUTER CARD_NUM VALUE: {self.card_num}")
-            print(f"COMPUTER CARD_SUIT VALUE: {self.card_suit}")
-            #gamestate.stock.remove(self.play_card) #gamestate.stock.remove(self.hand[self.play_card])
-            gamestate.current_top_card(self.card_suit, self.card_num)
-            gamestate.trick.append(self.hand[self.play_card]) #gamestate.trick.append(self.hand[self.play_card])
-            self.hand.remove(self.hand[self.play_card]) #self.hand.remove(self.hand[self.play_card])
-            print(f"COMP HANDDDD: {self.hand}\n")
+          #play card
+          play_card = random.choice(playableCards)
  
 if __name__ == "__main__":
-    """
     #stock = []
     #for i in deck:
     #   stock.append(i)
@@ -325,64 +273,5 @@ if __name__ == "__main__":
      
        
         player = GameState.round_winner(player1.card_num, player2.card_num)
-    """       
-    print("Welcome to Page One!\n")
-    
-    #create GameState object
-    gamestate = GameState()
-    
-    #get player 1 name and create human player class
-    lyst = [input("Enter the name of player 1 (Human Player): \n"), 
-    input("Enter the name of player 2 (Computer Player): \n")]
-    player1name, player2name = lyst
-    human = Human(player1name)
-    computer = Computer(player2name)
+       
 
-    #deal hands
-    players = (human, computer)
-    for item in players:
-        new_hand = gamestate.deal_hand()
-        for card in new_hand:
-            item.hand.append(card)
-
-    #BIG LOOP RUNNING THE GAME
-    ##########################
-    #begin loop, set play = False later to end game/while loop
-    play = True
-    player = 0 #sets game to have player 1 go first
-    print(f"{player1name} goes first!\n") #tells player to go first
-    while play:
-        #reset top_suit
-        gamestate.top_suit = ""
-        #print(f"{human.play_card} | {computer.play_card}")
-        #run each player's turn
-        if player == 0:
-            #print(f"Top Suit: {gamestate.top_suit}\n")
-            print(f"NEW ROUND: {player1name}'S TURN\n")
-            human.take_turn(gamestate)
-            print(f"New Top Card: {gamestate.top_card}\n")
-            computer.take_turn(gamestate)
-            #top_card = player1.top_card
-            #player = 1 - player
-        elif player == 1:
-            #print(f"Top Suit: {gamestate.top_suit}\n")
-            print(f"NEW ROUND: {player2name}'S TURN\n")
-            computer.take_turn(gamestate)
-            print(f"New Top Card: {gamestate.top_card}\n")
-            human.take_turn(gamestate)
-            #top_card = player2.top_card
-            #player = 1 - player
-        #see if either player won the game (empty hand)
-        player = gamestate.round_winner(human.nums[human.play_card], computer.nums[-1])
-        winner = gamestate.game_winner(human.hand, computer.hand)
-        if winner == None:
-            pass
-        elif winner == "Player 1":
-            print(f"Congrats {player1name}!! You hsve won this game of Page One! See you next time!")
-            play = False
-        elif winner == "Player 2":
-            print(f"Congrats {player2name}!! You hsve won this game of Page One! See you next time!")
-            play = False    
-
-    #END GAME STATEMENT
-    print("Thank you for playing Page One!\n")
