@@ -36,6 +36,14 @@ FACES = [
 
 #CREAT DECK FUNCTION
 def createdeck():
+    """Function to create the entire deck.
+    
+    Side effects:
+        append cards from the file to the deck
+    
+    Returns:
+        deck (str): returns a deck as a string with all of the cards from the file
+    """
     deck = []
     file = "deck.txt"
     with open(file, 'r', encoding = 'utf-8-sig') as f:
@@ -56,9 +64,35 @@ def createdeck():
 #    suitValue = match.group(1)
    
 class GameState:
-    """DOCSTRINGGGGG """ 
+    """A class for representing the state of the game
+    
+    Attributes:
+        deck (str) : a deck with all the cards as a string
+            
+    Methods:
+        repr (self): returns the current top card as a string
+        dealcard (path): deals a card to the hand until the count equals 0
+        draw_card (hand): draws a card to the hand 
+        Current_top_card (card_suit): shows the current top card
+        roundWinner (player1): displays the winner of the current round
+        roundWinner (player2): displays the winner of the current round
+        restock (self): changes the value of a class attribute 
+        game_winner (p1hand): displays the winner of the game
+        game_winner (p2hand): displays the winner of the game
+        isCardValid (card): returns true if the card is the top suit and false if it is not
+    """  
     def __init__(self):
-        """DOCSTRINGGGGG """ 
+        """Constructs all the necessary attributes for the gamestate object
+
+        Args:
+            top_suit (str): the top suit
+            high_card (str): the highest card
+            trick (list): the discard pile
+            stock (list): the draw pile
+        
+        Side effects:
+            initializes the top_suit, high_card, trick, and stock variables
+        """
         self.top_suit = ""
         self.high_card = ""
         self.trick = []
@@ -69,10 +103,19 @@ class GameState:
         self.stock = [i for i in deck] #LIST COMPREHENSION
         
     def __repr__(self):
-        """DOCSTRINGGGG """
+        """Return a formal representation of the gamestate object."""
         return (f"The current top card is: {self.top_card}")
 
     def deal_hand(self):
+        """Draws a card to the hand
+        
+        Side effects:
+            append cards from the deck to the hand
+            removes the drawn card from the draw pile
+
+        Returns:
+            Returns the hand which contains the cards which have been dealed
+        """
         hand = []
         count = 4
         while count > 0:
@@ -83,7 +126,19 @@ class GameState:
         return hand
             
     def draw_card(self, hand):     
-        """DOCSTRINGGGGG """
+        """Draws a card to the hand 
+        
+        Args:
+        hand (list): a list which contains all the cards that the player has
+        
+        Side effects:
+            append cards from the deck to the hand if the new card is not the top suit
+            removes the drawn card from the draw pile if the new card is not the top suit
+            removes the drawn card from the hand if the new card is the top suit
+
+        Returns:
+            Returns the hand which contains new card that has been drawn
+        """
         #suit = []
         hand = []
         new_card = random.choice(self.stock)
@@ -106,13 +161,29 @@ class GameState:
         return hand, new_card
    
     def current_top_card(self, card_suit, card_num):
-        """DOCSTRINGGGGG """ 
+        """Shows the current top card
+        
+        Args:
+        card_suit (str): a string which shows the suit of the current card
+
+        Side effects:
+            initializes the top_suit variable
+            
+        """
         self.top_suit = card_suit
         self.high_card = card_num
         self.top_card = (f"{self.high_card} {self.top_suit}")
     
     def round_winner(self, player1, player2):
-        """DOCSTRINGGGGG """ 
+        """Displays the winner of the current round
+        
+        Args:
+        player1 (str): the first player displayed as a string
+        player2 (str): the second player displayed as a string
+
+        Returns:
+            Returns 0 if the winner is player1 and returns 1 if the winner is player2
+        """ 
         cards = [player1, player2]
         winner = max (cards, key= lambda x: CARDS[x]) #Lambda
         if winner == player1:
@@ -121,18 +192,37 @@ class GameState:
             return 1
      
     def restock(self):
-        """DOCSTRING"""
+        """Changes the value of a class attribute 
+
+        Returns:
+            Returns none
+        """
         for card in self.trick:
             self.stock.append(card)
             self.trick.remove(card)
            
     def game_winner(self, p1hand, p2hand):
-        """DOCSTRINGGGGG """ 
+        """Displays the winner of the game
+        
+        Args:
+        p1hand (str): a string which contains the cards in the player 1's hand
+        p2hand (str): a string which contains the cards in the player 2's hand 
+
+        Returns:
+            Returns the winner of the game 
+        """ 
         winner = "Player 1" if p1hand == [] else "Player 2" if p2hand == [] else None
         return winner
   
     def isCardValid(self, card):
-        """DOCSTRINGGGGG """ 
+        """Determines whether the card is the top suit
+        
+        Args:
+        card (str): the current card
+
+        Returns:
+            Returns true if the card is the top suit and false if it is not
+        """ 
         if card == self.top_suit:  
             return True
         else:
@@ -140,9 +230,30 @@ class GameState:
    
    
 class Player:
-    """DOCSTRINGGGGG """ 
+    """A class for representing the player 
+    
+    Attributes:
+        deck (str) : a deck with all the cards as a string
+        player_name (str) : the player name represented as a string
+    """  
     def __init__(self, player_name="no_name"):
-        """DOCSTRINGGGGG """ 
+        """Constructs all the necessary attributes for the player object
+
+        Args:
+            player_name (str): the player name 
+            hand (list): a list which contains all the cards that the player has
+            top_card (str): the top card
+            chosenCard (str): the card that is chosen 
+            suits (list): a list of suits of each card in current hand
+            nums (list): a list of the face values of each card in current hand
+            playablecards (list): a list of all the cards that are playable
+            play_card (str): the card that is played represented as a string
+            card_index (int): the index of the card which has a default value of 0 
+            
+        
+        Side effects:
+            initializes the player_name, hand, top_card, chosenCard, suits, nums, playablecards, play_card, and card_index variables
+        """  
         #init player name
         #self.stock = []
         #for i in deck:
@@ -188,9 +299,20 @@ class Player:
             self.nums.append(cardValue)    
    
 class Human(Player):
-    """DOCSTRINGGGGG """ 
+    """A class for representing the human player
+            
+    Methods:
+        take_turn (self): engages in a full turn of the game
+    """ 
     def take_turn(self, gamestate):
-        """DOCSTRINGGGGG """ 
+        """Engages in a full turn of the game
+
+        Side effects:
+            appends the value of the suit to suits
+            appends the value of the  card to nums
+            appends the card to playable cards if it is playable
+            removes the played card from the hand if the played card is valid
+        """ 
         #get gamestate
         #check player's hand for playable cards
         #if none, draw till playable card
@@ -244,9 +366,20 @@ class Human(Player):
                     self.play_card = int(input("invalid entry, try another card: \n"))
                
 class Computer(Player):
-    """DOCSTRINGGGGG """ 
+    """A class for representing the computer player
+            
+    Methods:
+        take_turn (self): engages in a full turn of the game
+    """  
     def take_turn(self, gamestate):
-        """DOCSTRINGGGGG """ 
+        """Engages in a full turn of the game
+
+        Side effects:
+            appends the value of the suit to suits
+            appends the value of the  card to nums
+            appends the card to playable cards if it is playable
+            removes the played card from the hand if the played card is valid
+        """ 
         print(f"start turn hand COMPUTER: {self.hand}\n")
        
         #create match groups for future use
@@ -310,43 +443,6 @@ class Computer(Player):
             #print(f"Computer played: {self.hand[self.play_card]}\n")
  
 if __name__ == "__main__":
-    """
-    #stock = []
-    #for i in deck:
-    #   stock.append(i)
-   
-    player1_name = input("input first player's name: \n")
-    player2_name = input("input first player's name: \n")
-   
-    player1 = Human(player1_name, stock)
-    for card in player1.hand:
-        stock.remove(card)
-    player2 = Computer(player2_name, stock)
-    for card2 in player2.hand:    
-        stock.remove(card2)
-   
-    game = True
-    player = 0
-    while game:
-       
-        if player1.hand == [] or player2.hand == []:
-            GameState.game_winner()
-            game = False
-               
-        elif player == 0:
-            player1.take_turn()
-            player2.take_turn()
-            #top_card = player1.top_card
-            #player = 1 - player
-        elif player == 1:
-            player2.take_turn()
-            player1.take_turn()
-            #top_card = player2.top_card
-            #player = 1 - player
-     
-       
-        player = GameState.round_winner(player1.card_num, player2.card_num)
-    """       
     print("Welcome to Page One!\n")
     
     #create GameState object
