@@ -40,3 +40,10 @@ McLeod, John. “Page One.” Card Game Rules, 8 May 2009,
 https://www.pagat.com/inflation/page_one.html.
 
 We used this website to gain a better understanding of how the card game Page One is played. Using information provided by author John McLeod, we were able to write out all aspects of our code smoothly and efficiently. 
+
+
+NOTE:
+There is a logic error in which the computer would not understand to play a card even though it has a playable card in their hand (sometimes).
+This would result in the program randomly refusing to run.  If this happens, please close terminal and run program again.
+
+P.S (We spent 3 hours trying to track this logic error, with no progress, so we had to settle with this current version)
