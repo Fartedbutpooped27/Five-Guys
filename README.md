@@ -31,3 +31,12 @@ Ben: GameState.current_top_card
      GameState.deal_hand
      Human.take_turn
      Computer.take_turn
+
+
+ANNOTATED BIBLIOGRAPHY
+
+
+McLeod, John. “Page One.” Card Game Rules, 8 May 2009, 
+https://www.pagat.com/inflation/page_one.html.
+
+We used this website to gain a better understanding of how the card game Page One is played. Using information provided by author John McLeod, we were able to write out all aspects of our code smoothly and efficiently. 
