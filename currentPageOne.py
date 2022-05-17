@@ -222,6 +222,8 @@ class Human(Player):
             for i in lyst:
                 self.hand.append(i)
             print(f"your new current hand: {self.hand}\n")
+            gamestate.trick.append(new_card)
+            gamestate.current_top_card(self.card_suit, self.card_num)
         else:
             #play card
             self.play_card = int(input("please enter the index of a card to play: \n"))
@@ -271,6 +273,10 @@ class Computer(Player):
             print(f"Computer's new current hand: {self.hand}\n")
             new_card_lyst = [new_card]
             self.nums_and_suits(new_card_lyst)
+            gamestate.trick.append(self.play_card)
+            self.card_suit = self.suits[self.hand.index(self.play_card)]
+            self.card_num = self.nums[self.hand.index(self.play_card)]
+            gamestate.current_top_card(self.card_suit, self.card_num)
             self.hand.remove(self.play_card)
         else:
             #play card
@@ -375,6 +381,7 @@ if __name__ == "__main__":
         #see if either player won the game (empty hand)
         player = gamestate.round_winner(human.nums[human.play_card], computer.nums[-1])
         winner = gamestate.game_winner(human.hand, computer.hand)
+        #UPDATE TOP CARD
         if winner == None:
             pass
         elif winner == "Player 1":
