@@ -263,7 +263,7 @@ class Computer(Player):
         #print(f"NUMS LIST: {self.nums}")
         #print(f"SUITS LIST: {self.suits}")   
            
-        if self.playablecards == [] and gamestate.top_suit != "":
+        if self.playablecards == []: # and gamestate.top_suit != "":
             print("Computer must draw until playable card appears\n")
             #self.hand = gamestate.draw_card(self.hand)
             lyst, new_card = gamestate.draw_card(self.hand)

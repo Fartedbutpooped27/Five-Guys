@@ -22,10 +22,10 @@ Alex: GameState.isCardValid
 Jay: createdeck
      GameState.draw_card
      GameState.restock
+     Player.__init__
 
 Jon: GameState.round_winner
      GameState.game_winner
-     Player.__init__
 
 Ben: GameState.current_top_card
      GameState.deal_hand
